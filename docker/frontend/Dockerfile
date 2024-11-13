@@ -5,6 +5,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Copy package files from the Angular project directory
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
