@@ -32,7 +32,7 @@ services:
 
   houri-phone-ui:
     container_name: bsn-ui
-    image: firas709/houri-phone-ui:1.0.2
+    image: firas709/houri-phone-ui:1.0.3
     ports:
       - "8080:80"
     networks:
