@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
   houri-phone-api:
     container_name: houri-phone-api
-    image: firas709/houri-phone-api:1.0.0
+    image: firas709/houri-phone-api:latest
     environment:
       EMAIL_HOST_NAME: ${EMAIL_HOST_NAME}
       EMAIL_USER_NAME: ${EMAIL_USER_NAME}
@@ -27,8 +27,8 @@ services:
       - bsn-api-storage:/app/uploads
     networks:
       - spring-demo
-    depends_on:
-      - postgres
+#    depends_on:
+#      - postgres
 
   houri-phone-ui:
     container_name: bsn-ui
