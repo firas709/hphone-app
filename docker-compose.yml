@@ -32,9 +32,9 @@ services:
 
   houri-phone-ui:
     container_name: hphone-ui
-    image: firas709/houri-phone-ui:1.0.5
+    image: firas709/houri-phone-ui:latest
     ports:
-      - "8081:82"
+      - "8081:80"
     networks:
       - spring-demo
 #    depends_on:
