@@ -12,9 +12,8 @@ RUN npm run build
 
 FROM nginx:alpine
 
+COPY nginx.conf /etc/nginx/nginx.conf
+
 COPY --from=build-stage /app/dist/houri-phone-ui /usr/share/nginx/html
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
+EXPOSE 82
