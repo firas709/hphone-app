@@ -1,19 +1,35 @@
-FROM node:20 AS build-stage
+# Stage 1: Build the Angular application
+FROM node:20-alpine AS build
 
+# Set working directory
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package files from the Angular project directory
+COPY ../../houri-phone-ui/package*.json ./
 
+# Install dependencies
 RUN npm install
 
-COPY . .
+# Copy application source from the Angular project directory
+COPY ../../houri-phone-ui .
 
+# Build the application
 RUN npm run build
 
+# Stage 2: Serve the application using Nginx
 FROM nginx:alpine
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# Remove default nginx configuration
+RUN rm /etc/nginx/conf.d/default.conf
 
-COPY --from=build-stage /app/dist/houri-phone-ui /usr/share/nginx/html
+# Copy custom Nginx configuration from the Angular project directory
+COPY ../../houri-phone-ui/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 82
+# Copy built application from build stage
+COPY --from=build /app/dist/houri-phone-ui/browser /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
