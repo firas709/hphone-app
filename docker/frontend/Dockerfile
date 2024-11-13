@@ -5,7 +5,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Copy package files from the Angular project directory
-COPY ../../houri-phone-ui/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
@@ -23,7 +23,7 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy custom Nginx configuration from the Angular project directory
-COPY ../../houri-phone-ui/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy built application from build stage
 COPY --from=build /app/dist/houri-phone-ui/browser /usr/share/nginx/html
